@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.saveit.mapper.ExpenseMapper">
+
+<select id="getExpenseMonth" resultType="com.saveit.vo.Expense">
+  SELECT 
+    exp.user_id, cate.kind, cate.category, exp.expense_date, exp.amount 
+  FROM 
+    tb_expense exp
+    JOIN tb_category cate ON exp.category_id = cate.category_id
+  WHERE 
+    cate.kind = 1
+    AND exp.user_id = #{userId}
+    AND exp.expense_date >= #{startDate}
+    AND exp.expense_date &lt; #{endDate}
+</select>
+
+
+
+</mapper>

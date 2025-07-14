@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.saveit.mapper.LoginMapper">
+
+  <!-- 이메일로 사용자 조회 -->
+  <select id="findByEmail" resultType="com.saveit.vo.Login">
+    SELECT user_id, google_id AS googleId, email, name, create_at AS createAt
+    FROM tb_user
+    WHERE email = #{email}
+  </select>
+
+ <insert id="insertUser">
+    INSERT INTO tb_user (google_id,email, name)
+    VALUES (#{googleId},#{email}, #{name})
+</insert>
+
+</mapper>

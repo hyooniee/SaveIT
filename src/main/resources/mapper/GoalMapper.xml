@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.saveit.mapper.GoalMapper">
+	<select id="findGoalInfoByUserId" resultType="com.saveit.vo.Goal">
+  SELECT IFNULL(goal_amount, 0) AS goalAmount,
+   		goal_date
+  FROM tb_goal
+  WHERE user_id = #{userId}
+</select>
+
+
+</mapper>
