@@ -30,7 +30,7 @@ public class UserController {
 
 	       return ResponseEntity.ok(loginUser); // DB 재조회 안 해도 됨
 	   }
-//
+	   
 //	   @GetMapping("/id")
 //	   public ResponseEntity<?> getUserId(@AuthenticationPrincipal Login loginUser){
 //		   if(loginUser == null) {
