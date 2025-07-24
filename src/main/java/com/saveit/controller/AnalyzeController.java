@@ -53,8 +53,10 @@ public class AnalyzeController {
 
         if (expenses.isEmpty()) {
         	return ResponseEntity.ok(Map.of("summary", "지출 내역이 없습니다."));
+        
+        
         }
-        String result = geminiService.analyze(goalAmount, expenses);
+        String result = geminiService.analyze(userId,goalAmount, expenses);
 
         Map<String, Object> response = new HashMap<>();
         response.put("summary", result);

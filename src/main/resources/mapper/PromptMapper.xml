@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.saveit.mapper.PromptMapper">
+
+  <select id="findByType" parameterType="java.lang.String" resultType="com.saveit.vo.PromptVO">
+    SELECT prompt_id, prompt_type, template
+    FROM tb_prompt
+    WHERE prompt_type = #{promptType}
+    LIMIT 1
+  </select>
+
+</mapper>

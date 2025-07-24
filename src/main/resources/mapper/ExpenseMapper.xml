@@ -18,6 +18,37 @@
     AND exp.expense_date &lt; #{endDate}
 </select>
 
+<select id="getTop5CategoryExpense" resultType="map">
+	
+  SELECT 
+    cate.category AS category,
+    SUM(exp.amount) AS total,
+    ROUND(SUM(exp.amount) / total.total_sum * 100, 1) AS ratio
+  FROM 
+    tb_expense exp
+    JOIN tb_category cate ON exp.category_id = cate.category_id
+    JOIN (
+      SELECT SUM(amount) AS total_sum
+      FROM tb_expense
+      WHERE user_id = #{userId}
+        AND expense_date >= #{startDate}
+        AND expense_date &lt; #{endDate}
+        AND category_id IN (
+          SELECT category_id FROM tb_category WHERE kind = 1
+        )
+    ) total
+  WHERE 
+    exp.user_id = #{userId}
+    AND exp.expense_date >= #{startDate}
+    AND exp.expense_date &lt; #{endDate}
+    AND cate.kind = 1
+  GROUP BY cate.category, total.total_sum
+  ORDER BY total DESC
+  LIMIT 5
+</select>
+
+
+
 
 
 </mapper>

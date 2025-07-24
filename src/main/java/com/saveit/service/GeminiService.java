@@ -6,8 +6,8 @@ import com.saveit.vo.Expense;
 
 public interface GeminiService {
 
-	String analyze(int goalAmount, List<Expense> expenses);
+	String analyze(int userId ,int goalAmount, List<Expense> expenses);
 	
 	
-
+	
 }
