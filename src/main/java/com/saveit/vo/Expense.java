@@ -15,5 +15,5 @@ public class Expense {
     private String category;        // cate.category
     private LocalDate expenseDate;  // exp.expense_date
     private Integer amount;         // exp.amount
-    // + getter/setter
+   
 }

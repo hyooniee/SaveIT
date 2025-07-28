@@ -16,9 +16,6 @@ public class Goal {
 		private int userId;
 	    private int goalAmount;
 	    private LocalDate goalDate;
-		
-	    // getter, setter
-	
-	    
+
 
 }

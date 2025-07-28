@@ -1,38 +1,84 @@
 package com.saveit.service.impl;
 
+import com.saveit.mapper.PromptHistoryMapper;
+import com.saveit.mapper.PromptMapper;
 import com.saveit.service.GeminiService;
 import com.saveit.vo.Expense;
+import com.saveit.vo.PromptHistory;
+import com.saveit.vo.PromptVO;
+
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.ai.chat.messages.UserMessage;
+//import org.springframework.ai.chat.model.ChatResponse;
+import org.springframework.ai.chat.prompt.Prompt;
+import org.springframework.ai.vertexai.gemini.VertexAiGeminiChatClient;
+//import org.springframework.ai.vertexai.gemini.VertexAiGeminiChatModel;
+import org.springframework.http.ResponseEntity;
+import org.springframework.ai.chat.ChatResponse;
+
 
 import java.util.List;
 
 @Service
+@RequiredArgsConstructor
 public class GeminiServiceImpl implements GeminiService {
 
-    @Override
-    public String analyze(int goalAmount, List<Expense> expenses) {
-        // 🔽 여기가 실제 LLM(Gemini, GPT 등) 호출을 넣을 자리입니다.
+	private final VertexAiGeminiChatClient geminiClient;
+    private final PromptMapper promptMapper;
+    private final PromptHistoryMapper promptHistoryMapper;
+    
 
-        // [1] 프롬프트 구성
-        StringBuilder prompt = new StringBuilder();
-        prompt.append("사용자의 목표 금액은 ").append(goalAmount).append("원입니다.\n");
-        prompt.append("지출 내역은 다음과 같습니다:\n");
+
+    @Override
+    public String analyze(int userId, int goalAmount, List<Expense> expenses) {
+        PromptVO prompt = promptMapper.findByType("consumption_analysis");
+        if (prompt == null || prompt.getTemplate() == null) {
+            return "분석용 프롬프트가 존재하지 않습니다.";
+        }
+
+        // 1. 총 지출 계산
+        int totalSpent = expenses.stream().mapToInt(Expense::getAmount).sum();
+
+        // 2. 상세 지출 리스트 작성
+        StringBuilder detail = new StringBuilder();
         for (Expense e : expenses) {
-            prompt.append("- ").append(e.getExpenseDate()).append(" | ")
+            detail.append("- ").append(e.getExpenseDate()).append(" | ")
                   .append(e.getCategory()).append(" | ")
                   .append(e.getAmount()).append("원\n");
         }
 
-        // [2] Gemini 또는 GPT API 호출 (예시: callGemini(prompt.toString()))
-        String aiResponse = callGemini(prompt.toString());
+        // 3. 달성률 계산
+        int achieveRate = goalAmount > 0 ? (int) (((double) totalSpent / goalAmount) * 100) : 0;
 
-        // [3] 분석 결과 반환
+        // 4. 프롬프트에 값 치환
+        String filledPrompt = prompt.getTemplate()
+                .replace("{{goalAmount}}", String.valueOf(goalAmount))
+                .replace("{{total}}", String.valueOf(totalSpent))
+                .replace("{{rate}}", String.valueOf(achieveRate))
+                .replace("{{categorySummary}}", detail.toString());
+
+        // 5. Gemini 호출
+        ChatResponse response = geminiClient.call(new Prompt(new UserMessage(filledPrompt)));
+        String aiResponse = response.getResult().getOutput().getContent();
+
+
+        // 6. 기록 저장
+        PromptHistory history = PromptHistory.builder()
+                .userId(userId)
+                .promptId(prompt.getPromptId())
+                .requestInput(filledPrompt)
+                .geminiResponse(aiResponse)
+                .isSuccess(aiResponse != null && !aiResponse.isBlank())
+                .build();
+
+        promptHistoryMapper.insertPromptHistory(history);
+
         return aiResponse;
     }
 
-    // 🧪 예시: 실제 Gemini 호출 대신 임시로 구현
-    private String callGemini(String prompt) {
-        // 실제 구현 시: Google Vertex AI, OpenAI, HTTP API 요청 등
-        return "AI 분석 결과 예시: 현재 지출이 목표보다 15% 초과되었습니다.";
-    }
+//    @Override
+//    public ResponseEntity<String> listModels() {
+//        return ResponseEntity.ok("Spring AI에서는 모델 목록 API를 직접 지원하지 않습니다.");
+//    }
 }

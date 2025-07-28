@@ -2,6 +2,7 @@ package com.saveit.mapper;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
@@ -31,6 +32,13 @@ public interface ExpenseMapper {
 						 @Param("categoryId") int categoryId,
 						 @Param("amount") int amount,
 						 @Param("expenseDate") LocalDate expenseDate);
-	
+
+
+	List<Map<String, Object>> getTop5CategoryExpense(
+			@Param("userId") int userId, 
+			@Param("startDate")LocalDate startDate, 
+			@Param("endDate")LocalDate endDate);
+
+
 	
 }

@@ -7,6 +7,8 @@ import org.apache.ibatis.annotations.Param;
 import com.saveit.vo.Goal;
 
 public interface GoalMapper {
+	
+	Goal findGoalInfoByUserId(int userId);
 
 	Goal getGoalByUserId(@Param("userId") int userId);
 	
