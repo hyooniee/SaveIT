@@ -6,31 +6,22 @@ import java.util.List;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
 
-import com.saveit.vo.Expense;
+import com.saveit.vo.Save;
 
-public interface ExpenseMapper {
-
-	List<Expense> getExpenseMonth(
-		    @Param("userId") int userId,
-		    @Param("startDate") LocalDate startDate,
-		    @Param("endDate") LocalDate endDate
-		);
+public interface SaveMapper {
 	
-	List<Expense> getExpenseWeek(
+	List<Save> getSaveWeek(
 			@Param("userId") int userId,
 			@Param("startDate") LocalDate startDate,
 		    @Param("endDate") LocalDate endDate
 		);
 	
-	
 	@Select("SELECT category_id FROM tb_category WHERE category = #{category}")
 	
 	int findCategoryIdByName(@Param("category") String category);
 	
-	void inputExpense(@Param("userId") int userId,
+	void inputSave(@Param("userId") int userId,
 						 @Param("categoryId") int categoryId,
 						 @Param("amount") int amount,
-						 @Param("expenseDate") LocalDate expenseDate);
-	
-	
+						 @Param("saveDate") LocalDate saveDate);
 }

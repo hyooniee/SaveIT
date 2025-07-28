@@ -18,6 +18,21 @@
     AND exp.expense_date &lt; #{endDate}
 </select>
 
+<select id="getExpenseWeek" resultType="com.saveit.vo.Expense">
+	SELECT
+		exp.user_id, cate.kind, cate.category, exp.expense_date as expenseDate, exp.amount
+	FROM
+		tb_expense exp
+		JOIN tb_category cate ON exp.category_id = cate.category_id
+	WHERE
+		user_id = #{userId}
+      	AND exp.expense_date BETWEEN #{startDate} AND #{endDate}
+</select>
+
+<insert id="inputExpense">
+	INSERT INTO tb_expense (user_id, category_id, expense_date, amount)
+	VALUES (#{userId}, #{categoryId}, #{expenseDate}, #{amount})
+</insert>
 
 
 </mapper>
