@@ -5,15 +5,11 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-@MapperScan("com.saveit.mapper")
+@MapperScan("com.saveit.mapper") 
 public class SaveITprojectApplication {
-
-	public static void main(String[] args) {
-		
-		SpringApplication.run(SaveITprojectApplication.class, args);
-
-	}
-
+    public static void main(String[] args) {
+        SpringApplication.run(SaveITprojectApplication.class, args);
+    }
 }
 
 

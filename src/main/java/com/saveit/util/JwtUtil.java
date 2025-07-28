@@ -46,13 +46,13 @@ public class JwtUtil {
                     .parseClaimsJws(token)
                     .getBody();
         } catch (ExpiredJwtException e) {
-            System.out.println("⚠ 만료된 JWT입니다: " + e.getMessage());
+            System.out.println(" 만료된 JWT입니다: " + e.getMessage());
         } catch (UnsupportedJwtException e) {
-            System.out.println("⚠ 지원하지 않는 JWT입니다: " + e.getMessage());
+            System.out.println(" 지원하지 않는 JWT입니다: " + e.getMessage());
         } catch (MalformedJwtException e) {
-            System.out.println("⚠ 잘못된 형식의 JWT입니다: " + e.getMessage());
+            System.out.println(" 잘못된 형식의 JWT입니다: " + e.getMessage());
         } catch (SecurityException | IllegalArgumentException e) {
-            System.out.println("⚠ JWT 검증 실패: " + e.getMessage());
+            System.out.println(" JWT 검증 실패: " + e.getMessage());
         }
         return null;
     }

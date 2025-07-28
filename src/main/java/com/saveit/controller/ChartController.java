@@ -9,14 +9,12 @@ import java.util.Map;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.saveit.mapper.ExpenseMapper;
 import com.saveit.mapper.GoalMapper;
-import com.saveit.vo.Expense;
 import com.saveit.vo.Goal;
 import com.saveit.vo.Login;
 

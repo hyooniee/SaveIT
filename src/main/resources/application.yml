@@ -1,6 +1,7 @@
 spring:
   config:
-    import: "application-secret.yml"
+    import: "classpath:application-secret.yml"
+
 
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
