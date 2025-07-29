@@ -36,7 +36,6 @@ public class ChartController {
 
 	    int userId = loginUser.getUserId();
 	    Goal goal = goalMapper.findGoalInfoByUserId(userId);
-
 	    LocalDate startDate = goal.getGoalDate();
 	    LocalDate endDate = startDate.plusMonths(1);
 
@@ -44,15 +43,46 @@ public class ChartController {
 
 	    List<String> labels = new ArrayList<>();
 	    List<Integer> series = new ArrayList<>();
+	    List<Double> ratio = new ArrayList<>();
 
+	  
 	    for (Map<String, Object> item : data) {
 	        labels.add((String) item.get("category"));
-	        series.add(((Number) item.get("total")).intValue()); 
+	        int total = ((Number) item.get("total")).intValue();
+	        series.add(total);
 	    }
 
+	    
+	    int totalAmount = 0;
+	    for (int amount : series) {
+	        totalAmount += amount;
+	    }
+
+	    
+	    for (int total : series) {
+	        double percent = (total * 100.0) / totalAmount;
+	        ratio.add((double)Math.round(percent));
+
+	    }
+
+	    // 오차 보정
+	    double sum = 0.0;
+	    for (double r : ratio) {
+	        sum += r;
+	    }
+
+	    double diff = 100 - sum;
+	    if (!ratio.isEmpty()) {
+	        int lastIndex = ratio.size() - 1;
+	        ratio.set(lastIndex, ratio.get(lastIndex) + diff);
+	    }
+
+	   
 	    Map<String, Object> response = new HashMap<>();
 	    response.put("labels", labels);
 	    response.put("series", series);
+	    response.put("ratio", ratio);
+	    System.out.println("response: " + response);
 
 	    return ResponseEntity.ok(response);
 	}

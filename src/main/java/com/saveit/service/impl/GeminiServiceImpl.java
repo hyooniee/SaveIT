@@ -10,10 +10,8 @@ import com.saveit.vo.PromptVO;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.ai.chat.messages.UserMessage;
-//import org.springframework.ai.chat.model.ChatResponse;
 import org.springframework.ai.chat.prompt.Prompt;
 import org.springframework.ai.vertexai.gemini.VertexAiGeminiChatClient;
-//import org.springframework.ai.vertexai.gemini.VertexAiGeminiChatModel;
 import org.springframework.http.ResponseEntity;
 import org.springframework.ai.chat.ChatResponse;
 
