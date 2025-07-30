@@ -9,11 +9,11 @@ import lombok.Setter;
 @Data
 @Getter
 @Setter
-public class Expense {
-    private Integer userId;         // exp.user_id
+public class Save {
+    private Integer userId;         // save.user_id
     private Integer kind;           // cate.kind
     private String category;        // cate.category
-    private LocalDate expenseDate;  // exp.expense_date
-    private Integer amount;         // exp.amount
-   
+    private LocalDate saveDate;  	// save.saveing_date
+    private Integer amount;         // save.amount
+	
 }

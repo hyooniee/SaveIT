@@ -7,7 +7,7 @@
 
   <!-- 이메일로 사용자 조회 -->
   <select id="findByEmail" resultType="com.saveit.vo.Login">
-    SELECT user_id, google_id AS googleId, email, name, create_at AS createAt
+    SELECT user_id AS userId, google_id AS googleId, email, name, create_at AS createAt
     FROM tb_user
     WHERE email = #{email}
   </select>

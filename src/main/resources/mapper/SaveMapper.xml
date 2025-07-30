@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.saveit.mapper.SaveMapper">
+<select id="getSaveWeek" resultType="com.saveit.vo.Save">
+	SELECT
+		sav.user_id, cate.kind, cate.category, sav.saving_date as saveDate, sav.amount
+	FROM
+		tb_saving sav
+		JOIN tb_category cate ON sav.category_id = cate.category_id
+	WHERE
+		user_id = #{userId}
+      	AND sav.saving_date BETWEEN #{startDate} AND #{endDate}
+</select>	
+
+<insert id="inputSave">
+	INSERT INTO tb_saving (user_id, category_id, saving_date, amount)
+	VALUES (#{userId}, #{categoryId}, #{saveDate}, #{amount})
+</insert>
+
+</mapper>

@@ -30,6 +30,14 @@ public class UserController {
 	       return ResponseEntity.ok(loginUser); // DB 재조회 안 해도 됨
 	   }
 
+//	   @GetMapping("/id")
+//	   public ResponseEntity<?> getUserId(@AuthenticationPrincipal Login loginUser){
+//		   if(loginUser == null) {
+//			   return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("로그인 정보가 없습니다.");
+//		   }
+//		   return ResponseEntity.ok(Map.of("userId",loginUser.getUserId()));
+//	   }
+
 }
 
 

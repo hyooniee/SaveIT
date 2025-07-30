@@ -30,7 +30,7 @@ public class SecurityConfig {
                     .policyDirectives("frame-ancestors 'self' https://accounts.google.com")
                 )
             )
-            .authorizeHttpRequests(auth -> auth
+            .authorizeHttpRequests(auth -> auth   
                 .requestMatchers("/auth/**").permitAll()
                 .anyRequest().authenticated()
             )
