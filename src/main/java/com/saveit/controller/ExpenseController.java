@@ -33,7 +33,7 @@ public class ExpenseController {
 	    Integer userId = jwtUtil.getUserId(token);
 		
 		 if (userId == null) {
-		        return ResponseEntity.status(401).build(); // 유효하지 않은 토큰
+		        return ResponseEntity.status(401).build(); 
 	    }
 		 
 		 List<Expense> expense = expenseService.getExpense(userId, offset);
@@ -55,8 +55,11 @@ public class ExpenseController {
 	    
 	    Expense input = expenseService.inputExpense(expense);
 	    
-//	    System.out.println(input);
+
 	    
 	    return ResponseEntity.ok(input);
 	}
+	
+	
+	
 }
