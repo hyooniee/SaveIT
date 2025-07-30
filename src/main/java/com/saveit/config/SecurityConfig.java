@@ -42,7 +42,9 @@ public class SecurityConfig {
     @Bean
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration config = new CorsConfiguration();
-        config.setAllowedOrigins(List.of("saveit-production-26b7.up.railway.app"));
+        config.setAllowedOrigins(List.of(
+        		"http://localhost:5173",
+        		"https://saveit-production-26b7.up.railway.app"));
         //http://localhost:5173
         config.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "OPTIONS"));
         config.setAllowedHeaders(List.of("*"));
