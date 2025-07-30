@@ -31,6 +31,7 @@ public class SecurityConfig {
                 )
             )
             .authorizeHttpRequests(auth -> auth   
+            	.requestMatchers(org.springframework.http.HttpMethod.OPTIONS, "/**").permitAll()	
                 .requestMatchers("/auth/**").permitAll()
                 .anyRequest().authenticated()
             )
@@ -45,7 +46,6 @@ public class SecurityConfig {
         config.setAllowedOrigins(List.of(
         		"http://localhost:5173",
         		"https://saveit-production-26b7.up.railway.app"));
-        //http://localhost:5173
         config.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "OPTIONS"));
         config.setAllowedHeaders(List.of("*"));
         config.setAllowCredentials(true);
