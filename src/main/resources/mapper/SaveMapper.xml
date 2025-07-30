@@ -4,6 +4,15 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.saveit.mapper.SaveMapper">
+
+<select id="totalSaveMonth" resultType="int">
+  SELECT COALESCE(SUM(sav.amount), 0)
+  FROM tb_saving sav
+  WHERE sav.user_id = #{userId}
+    AND sav.saving_date >= #{startDate}
+    AND sav.saving_date &lt; #{endDate}
+</select>
+
 <select id="getSaveWeek" resultType="com.saveit.vo.Save">
 	SELECT
 		sav.user_id, cate.kind, cate.category, sav.saving_date as saveDate, sav.amount

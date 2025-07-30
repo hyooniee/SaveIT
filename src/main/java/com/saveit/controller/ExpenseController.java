@@ -37,7 +37,8 @@ public class ExpenseController {
 	    }
 		 
 		 List<Expense> expense = expenseService.getExpense(userId, offset);
-		
+		System.out.println(expense);
+		 
 		return ResponseEntity.ok(expense);
 	}
 	

@@ -5,6 +5,14 @@
 
 <mapper namespace="com.saveit.mapper.ExpenseMapper">
 
+<select id="totalExpenseMonth" resultType="int">
+  SELECT COALESCE(SUM(exp.amount), 0)
+  FROM tb_expense exp
+  WHERE exp.user_id = #{userId}
+    AND exp.expense_date >= #{startDate}
+    AND exp.expense_date &lt; #{endDate}
+</select>
+
 <select id="getExpenseMonth" resultType="com.saveit.vo.Expense">
   SELECT 
     exp.user_id, cate.kind, cate.category, exp.expense_date, exp.amount 
