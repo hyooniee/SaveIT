@@ -48,6 +48,8 @@ public class LoginController {
             result.put("user", user);
 
             return ResponseEntity.ok(result);
+            
+            
         } catch (Exception e) {
             e.printStackTrace();
             return ResponseEntity.status(401).body("Invalid Google ID Token");
