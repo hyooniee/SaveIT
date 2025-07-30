@@ -23,6 +23,12 @@ public interface ExpenseMapper {
 		    @Param("endDate") LocalDate endDate
 		);
 	
+	int totalExpenseMonth(
+		    @Param("userId") int userId,
+		    @Param("startDate") LocalDate startDate,
+		    @Param("endDate") LocalDate endDate
+		);
+	
 	
 	@Select("SELECT category_id FROM tb_category WHERE category = #{category}")
 	

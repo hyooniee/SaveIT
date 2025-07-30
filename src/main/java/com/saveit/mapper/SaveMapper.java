@@ -16,6 +16,12 @@ public interface SaveMapper {
 		    @Param("endDate") LocalDate endDate
 		);
 	
+	int totalSaveMonth(
+		    @Param("userId") int userId,
+		    @Param("startDate") LocalDate startDate,
+		    @Param("endDate") LocalDate endDate
+		);
+	
 	@Select("SELECT category_id FROM tb_category WHERE category = #{category}")
 	
 	int findCategoryIdByName(@Param("category") String category);

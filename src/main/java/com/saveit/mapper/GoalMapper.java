@@ -17,4 +17,6 @@ public interface GoalMapper {
 						  @Param("goalDate") LocalDate goalDate);
 	
 	void deleteGoalByUserId(int userId);
+
+
 }
