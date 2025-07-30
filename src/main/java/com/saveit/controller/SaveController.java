@@ -54,7 +54,7 @@ public class SaveController {
 	    
 	    Save input = saveService.inputSave(save);
 	    
-//	    System.out.println(input);
+
 	    
 	    return ResponseEntity.ok(input);
 	}
